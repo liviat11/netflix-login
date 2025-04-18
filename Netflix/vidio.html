@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro Video Page</title>
+    <link rel="stylesheet" href="vidio.css">
+    <style>
+        /* Vendoset stili yt ekzistues pa ndryshime këtu */
+        /* ... (e gjithë pjesa e stilit që dërgove më sipër) ... */
+
+        .modal-video {
+            max-height: 300px;
+        }
+
+        .preloader video {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="preloader">
+        <video id="introVideo" playsinline muted>
+            <source src="intro/netflix.intro .mp4" type="video/mp4">
+        </video>
+        <button id="playButton">Play</button>
+    </div>
+
+    <script>
+        // Funksionaliteti i preloader-it dhe videos
+        const playButton = document.getElementById('playButton');
+        const introVideo = document.getElementById('introVideo');
+        const preloader = document.querySelector('.preloader');
+        const body = document.body;
+
+        // Fsheh përmbajtjen fillimisht
+        body.style.overflow = 'hidden';
+
+        playButton.addEventListener('click', () => {
+            introVideo.play();
+            playButton.style.display = 'none';
+
+            try {
+                introVideo.muted = false;
+            } catch(e) {
+                console.log("Nuk mund të heqim muteshimin:", e);
+            }
+        });
+
+        introVideo.onended = function() {
+            window.location.href = 'intro.html'; // Lidhet me faqen intro pas përfundimit
+        };
+    </script>
+
+</body>
+</html>

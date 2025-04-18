@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetFilma</title>
+    <link rel="stylesheet" href="intro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        
+        
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            opacity: 1;
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #181818;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .modal-video {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e50914;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .close-btn:hover {
+            background: #f40612;
+            transform: rotate(90deg);
+        }
+
+        .card:hover {
+            transform: scale(1.08) translateY(-10px);
+            box-shadow: 0 15px 30px rgba(229, 9, 20, 0.3);
+            border-color: rgba(229, 9, 20, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                padding: 15px;
+            }
+            
+            .modal-video {
+                max-height: 300px;
+            }
+            
+            .preloader video {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+   
+    
+    <header>
+        <a class="logo" href="#home">NETFILMA</a>
+
+        <nav>
+            <ul>
+                <li><a href="login.html">Sign In</a></li>
+                <li><a href="#popular">Popular Now</a></li>
+                <li><a href="#plans">Plans</a></li>
+                <li><a href="#reasons">Reasons to Join</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Hero Section -->
+    <section id="home" class="hero">
+        <h1>Unlimited movies, TV shows, and more</h1>
+        <p>Starts at EUR 4.99. Cancel anytime.</p>
+        <p>Ready to watch? Enter your email to create or restart your membership.</p>
+        
+        <form id="emailForm">
+            <input type="email" placeholder="Email address" required>
+            <button type="submit">Get Started</button>
+        </form>
+    </section>
+
+    <!-- Popular Now Section -->
+    <section id="popular" class="trending-section">
+        <h2>Popular Now</h2>
+        <div class="carousel-container">
+            <div class="carousel-nav prev" onclick="scrollCarousel(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="card-deck" id="carousel">
+                <div class="card" onclick="openModal('Money Heist', 'The gang has been in the Bank of Spain for more than 100 hours and the Professor is at risk. To make matters worse, a new adversary is coming: the army.', 'intro/Money Heist .mp4')">
+                    <img src="https://i.pinimg.com/736x/f3/e2/10/f3e210a585b238729db9ba74501acc6f.jpg" class="card-img-top" alt="Money Heist">
+                </div>
+                <div class="card" onclick="openModal('Squid Game', 'Player 001 asks Gi-hun if he is willing to sacrifice some to save the rest that the Front Man has greater plans for Gi-hun. This strongly suggests that Squid Game season 3 is heading toward a trolley problem that Gi-hun will be forced to solve.', 'intro/Squid Game.mp4')">
+                    <img src="https://i.pinimg.com/736x/23/cc/bf/23ccbf28137082dc795cf308f74f5ec0.jpg" class="card-img-top" alt="Squid Game">
+                </div>
+                <div class="card" onclick="openModal('Mea Culpa', 'A criminal defense attorney (Kelly Rowland) agrees to defend a seductive artist Trevante Rhodes accused of murdering his girlfriend. But when desire takes hold, her big case takes a dangerous turn.', 'intro/Mea Culpa.mp4')">
+                    <img src="https://i.pinimg.com/736x/55/e1/2d/55e12d250a0498a939d9e35e4e793146.jpg" class="card-img-top" alt="Mea Culpa">
+                </div>
+                <div class="card" onclick="openModal('Hustlers', 'Inspired by a true story, Hustlers follows Destiny (Constance Wu, Crazy Rich Asians), a young stripper struggling to make ends meet. That is, until she meets Ramona (Jennifer Lopez), the club who shows her the way to make big bucks', 'intro/Hustlers .mp4')">
+                    <img src="https://i.pinimg.com/736x/23/25/62/232562c1f7be5e5616d094b5ae5ecf92.jpg" class="card-img-top" alt="Hustlers">
+                </div>
+                <div class="card" onclick="openModal('Beauty in Black', 'With their empire on the line, the ruthless Bellarie family faces a reckoning as Kimmie fights to save her sister and get revenge — no matter the cost.', 'intro/Beauty in Black2 .mp4')">
+                    <img src="https://i.pinimg.com/736x/b2/fe/14/b2fe14bfeab1a03acbc8c1a1e7478162.jpg" class="card-img-top" alt="Beauty in Black">
+                </div>
+            </div>
+            <div class="carousel-nav next" onclick="scrollCarousel(1)">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Structure -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title">Title</h2>
+            <video id="modal-video" class="modal-video" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p id="modal-description">Description goes here...</p>
+        </div>
+    </div>
+
+<script>
+    // Funksionaliteti i preloader-it dhe videos
+const playButton = document.getElementById('playButton');
+const introVideo = document.getElementById('introVideo');
+const preloader = document.querySelector('.preloader');
+const body = document.body;
+
+// Fillimisht fsheh përmbajtjen
+body.style.overflow = 'hidden';
+
+
+
+// Funksioni për klikimin në butonin "Play"
+playButton.addEventListener('click', () => {
+    introVideo.play();
+    playButton.style.display = 'none';
+
+    // Mund të provojmë të heqim muteshimin pasi përdoruesi ka interaktuar
+    try {
+        introVideo.muted = false;
+    } catch(e) {
+        console.log("Nuk mund të heqim muteshimin:", e);
+    }
+});
+
+// Kur video përfundon
+introVideo.onended = function() {
+    preloader.style.opacity = '0';
+    setTimeout(() => {
+        preloader.style.display = 'none';
+        body.style.overflow = 'auto'; // Lejon shfletimin pas videos
+    }, 500);
+};
+
+// Funksioni për hapjen e modal-it
+function openModal(title, description, videoUrl) {
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
+    const modalVideo = document.getElementById('modal-video');
+
+    modalTitle.textContent = title;
+    modalDescription.textContent = description;
+    modalVideo.querySelector('source').src = videoUrl;
+
+    // Rinis dhe ngarko videon e re
+    modalVideo.pause();
+    modalVideo.currentTime = 0;
+    modalVideo.load();
+
+    // Shfaq modal-in
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+
+    // Pauzo video-t e tjera kur hapet modal-i
+    document.querySelectorAll('video').forEach(vid => {
+        if (vid !== modalVideo) vid.pause();
+    });
+}
+
+// Funksioni për mbylljen e modal-it
+function closeModal() {
+    const modal = document.getElementById('modal');
+    const modalVideo = document.getElementById('modal-video');
+    
+    modal.classList.remove('show');
+    modalVideo.pause();
+}
+
+// Funksionaliteti i karuselit
+function scrollCarousel(direction) {
+    const carousel = document.getElementById('carousel');
+    const scrollAmount = carousel.clientWidth * 0.8;
+
+    carousel.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+    });
+}
+
+// Mbylle modal-in kur klikoni jashtë përmbajtjes
+window.onclick = function(event) {
+    const modal = document.getElementById('modal');
+    if (event.target == modal) {
+        closeModal();
+    }
+};
+</script>
+
+<section id="plans"  class="pricing-section">
+    <h1>A Plan To Suit Your Needs</h1>
+    <div class="pricing-cards">
+        <!-- Basic Plan -->
+        <div class="pricing-card" onclick="window.location.href=''">
+            <h2>Basic</h2>
+            <p>720p</p>
+            <ul>
+                <li>✓ Good video quality</li>
+                <li>✓ For your phone, tablet, laptop and TV</li>
+            </ul>
+            <div class="price">EUR 4.99 /mo</div>
+        </div>
+
+        <!-- Standard Plan -->
+        <div class="pricing-card popular" onclick="window.location.href='signup.html?plan=standard'">
+            <h2>Standard</h2>
+            <p>1080p</p>
+            <ul>
+                <li>✓ Great video quality</li>
+                <li>✓ For your phone, tablet, laptop and TV</li>
+            </ul>
+            <div class="price">EUR 7.99 /mo</div>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="pricing-card" onclick="window.location.href='signup.html?plan=premium'">
+            <h2>Premium</h2>
+            <p>4K + HDR</p>
+            <ul>
+                <li>✓ Best video quality</li>
+                <li>✓ Immersive sound (spatial audio)</li>
+                <li>✓ For your phone, tablet, laptop and TV</li>
+            </ul>
+            <div class="price">EUR 9.99 /mo</div>
+        </div>
+    </div>
+</section>
+
+<section id="reasons" class="features-section">
+    <h1>More Reasons to Join</h1>
+    
+    <div class="feature">
+        <h2><i class="fas fa-tv"></i> Enjoy on your TV</h2>
+        <p>Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.</p>
+    </div>
+    
+    <div class="divider"></div>
+    
+    <div class="feature">
+        <h2><i class="fas fa-download"></i> Download your shows to watch offline</h2>
+        <p>Save your favorites easily and always have something to watch.</p>
+    </div>
+    
+    <div class="divider"></div>
+    
+    <div class="feature">
+        <h2><i class="fas fa-mobile-alt"></i> Watch everywhere</h2>
+        <p>Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.</p>
+    </div>
+    
+    <div class="divider"></div>
+    
+    <div class="feature">
+        <h2><i class="fas fa-child"></i> Create profiles for Kids</h2>
+        <p>Send kids on adventures with their favorite characters in a space made just for them — free with your membership.</p>
+    </div>
+</section>
+
+<!-- FAQ -->
+
+<section id="faq" class="faq-section">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+  
+    <div class="faq-item">
+      <button class="faq-question">What is Netflix?</button>
+      <div class="faq-answer">
+        <p>Netflix is a streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.</p>
+        <p>You can watch as much as you want, whenever you want without a single commercial – all for one low monthly price. There's always something new to discover and new TV shows and movies are added every week!</p>
+      </div>
+    </div>
+  
+    <div class="faq-item">
+      <button class="faq-question">How much does Netflix cost?</button>
+      <div class="faq-answer">
+        <p>Netflix plans start at just a few euros per month. No extra costs, no contracts.</p>
+      </div>
+    </div>
+  
+    <div class="faq-item">
+      <button class="faq-question">Where can I watch?</button>
+      <div class="faq-answer">
+        <p>Watch anywhere, anytime. Sign in with your Netflix account to watch instantly on the web or on devices that support the Netflix app.</p>
+      </div>
+    </div>
+  
+    <div class="faq-item">
+      <button class="faq-question">How do I cancel?</button>
+      <div class="faq-answer">
+        <p>You can cancel your Netflix membership at any time. There are no cancellation fees – start or stop your account whenever you want.</p>
+      </div>
+    </div>
+  </section>
+  
+
+
+
+</body>
+
+
+<script>
+    const faqQuestions = document.querySelectorAll('.faq-question');
+  
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        question.classList.toggle('active');
+        const answer = question.nextElementSibling;
+        if (answer.style.display === 'block') {
+          answer.style.display = 'none';
+        } else {
+          answer.style.display = 'block';
+        }
+      });
+    });
+  </script>
+</html>
